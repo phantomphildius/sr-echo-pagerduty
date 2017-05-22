@@ -4,7 +4,6 @@ module PagerDuty
     NO_ALERTS = "There are no triggered alerts".freeze
     def self.json_resources
       @resources ||= PagerDuty::Request.where(PATH, {statuses: ["triggered"], sort_by: "created_at:desc"})
-      binding.pry
       JSON.parse(@resources.body)["incidents"]
     end
 
