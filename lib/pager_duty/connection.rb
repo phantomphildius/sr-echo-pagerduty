@@ -7,7 +7,7 @@ module PagerDuty
     ACCEPT_VERSION = "application/vnd.pagerduty+json;version=2"
     attr_accessor :token, :base, :accept_version
 
-    def initialize(args={token: "AqRco1iUppw51HwoGSxi"})
+    def initialize(args={})
       @@token = args[:token] || args["token"]
       @@base_url = args[:base_url] || args["base_url"] || BASE_URL
       @@accept_version = args[:accept_version] || args["accept_version"] || ACCEPT_VERSION
