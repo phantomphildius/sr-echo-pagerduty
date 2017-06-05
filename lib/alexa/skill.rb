@@ -1,4 +1,4 @@
-require_relative '../config'
+require_relative '../config' # think about moving to server.rb
 require_relative './handlers'
 
 module Alexa
