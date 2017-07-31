@@ -1,3 +1,3 @@
-intent 'LastIncident' do
-  respond(PagerDuty::Incident.last_alert_title)
+intent 'LastIncident' do |user_id|
+  respond(PagerDuty::Incident.last_alert_title(user_id))
 end

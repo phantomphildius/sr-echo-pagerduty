@@ -1,28 +1,23 @@
-require 'aws-sdk'
-require './lib/alexa/request'
+require 'aws-sdk-core'
 
-class Alexa
+module Alexa
   class Dynamo
     TABLE_NAME = "Users"
 
-    def initialize()
+    # TODO make this a proper class with init method
+    def self.fetch_token(user_id)
       Aws.config.update({
         region: "us-west-1",
         endpoint: "http://localhost:8000"
       })
 
-      Aws::DynamoDB::Client.new
-    end
-
-    def get_access_key!
-      user = nil
-      dynamo_db = new()
+      dynamo_db = Aws::DynamoDB::Client.new
       begin
-        user = dynamo_db.get_item({table_name: TABLE_NAME, key: {user_id: REPLACE_ME}})
+        user = dynamo_db.get_item({table_name: TABLE_NAME, key: {user_id: user_id}}).item
       rescue Aws::DynamoDB::Errors::ServiceError  => error
         puts "Unable to retrive user. Error: #{error.message}"
       end
-      user[:item][:info][:access_key]
+      user["info"]["access_key"]
     end
   end
 end

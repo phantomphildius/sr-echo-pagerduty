@@ -10,7 +10,7 @@ module Alexa
     end
 
     def handle
-      instance_eval &registered_intent(request.intent_name)
+      instance_exec request.user_id, &registered_intent(request.intent_name)
     end
 
     class << self
