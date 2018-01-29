@@ -26,7 +26,7 @@ module PagerDuty
         update_resource(alert)
         "Alert successfully #{action}d"
       rescue StandardError => e
-        "#{e.message}"
+        (e.message).to_s
       end
     end
 
