@@ -1,25 +1,37 @@
 module PagerDuty
   class Incident
-    attr_reader :title, :alert_id
+    Alert = Struct.new(:id, :title)
 
     PATH = '/incidents'.freeze
     NO_ALERTS = 'There are no triggered alerts'.freeze
 
-    def initialize(id, title)
-      @alert_id = id
-      @title = title
+    attr_reader :user_id
+
+    def initialize(user_id)
+      @user_id = user_id
     end
 
-    def self.json_resources(user_id)
-      @resources ||= PagerDuty::Request.where(user_id, PATH, statuses: ['triggered'], sort_by: 'created_at:desc')
-      JSON.parse(@resources.body)['incidents']
+    def last_alert(user_id)
+      alert = json_resources.first || {}
+      Alert.new(
+        id: alert.fetch('id', nil),
+        title: alert.fetch('title', NO_ALERTS)
+      )
     end
 
-    def self.last_alert(user_id)
-      alert = json_resources(user_id).first || {}
-      title = alert.fetch('title', NO_ALERTS)
-      id = alert.fetch('id', nil)
-      new(id, title)
+    private
+
+    def json_resources
+      JSON.parse(resources.body)['incidents']
+    end
+
+    def resources
+      @resources ||= PagerDuty::Request.where(
+        user_id,
+        PATH,
+        statuses: ['triggered'],
+        sort_by: 'created_at:desc'
+      )
     end
   end
 end

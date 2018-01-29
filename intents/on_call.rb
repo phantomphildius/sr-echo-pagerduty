@@ -1,3 +1,4 @@
 intent 'OnCall' do |user_id|
-  respond(PagerDuty::OnCall.sorted_on_call_names(user_id))
+  pd = PagerDuty::OnCall.new(user_id)
+  respond(pd.sorted_on_call_names)
 end
