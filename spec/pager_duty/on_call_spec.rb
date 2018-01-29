@@ -8,19 +8,19 @@ RSpec.describe PagerDuty::OnCall do
   let(:oncalls) do
     [
       {
-        id: "1",
+        id: '1',
         escalation_level: 2,
-        user: {summary: 'Kevin McHale'}
+        user: { summary: 'Kevin McHale' }
       },
       {
-        id: "2",
+        id: '2',
         escalation_level: 1,
-        user: {summary: 'Larry Bird'}
+        user: { summary: 'Larry Bird' }
       },
       {
-        id: "3",
+        id: '3',
         escalation_level: 3,
-        user: {summary: 'Robert Parish'}
+        user: { summary: 'Robert Parish' }
       }
     ]
   end

@@ -4,7 +4,7 @@ require_relative './handlers'
 module Alexa
   class Skill
     def self.register_intents
-      Dir.glob("intents/*.rb").each { |intent_decleration| register(intent_decleration) }
+      Dir.glob('intents/*.rb').each { |intent_decleration| register(intent_decleration) }
     end
 
     def self.register(intent_decleration)

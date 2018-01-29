@@ -29,8 +29,8 @@ module Alexa
       @@intents[intent_name]
     end
 
-    def respond(response_details)
-      Alexa::Response.build(response_details)
+    def respond(response_details, session_attributes = {})
+      Alexa::Response.build(response_details, session_attributes)
     end
 
     private :request, :registered_intent

@@ -7,15 +7,15 @@ module Alexa
     end
 
     def intent_name
-      @request["request"]["intent"]["name"]
+      @request['request']['intent']['name']
     end
 
     def user_id
-      @request["session"]["user"]["userId"]
+      @request['session']['user']['userId']
     end
 
     def slot_value(slot_name)
-      @request["request"]["intent"]["slots"][slot_name]["value"]
+      @request['request']['intent']['slots'][slot_name]['value']
     end
   end
 end
