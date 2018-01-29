@@ -11,18 +11,37 @@ module PagerDuty
       @user_id = user_id
     end
 
-    def last_alert(user_id)
-      alert = json_resources.first || {}
+    def last_alert
+      alert = last_json_resource || {}
       Alert.new(
         id: alert.fetch('id', nil),
         title: alert.fetch('title', NO_ALERTS)
       )
     end
 
+    def update_last_alert(action)
+      alert = last_json_resource || {}
+      alert['status'] = action
+      begin
+        update_resource(alert)
+        "Alert successfully #{action}d"
+      rescue StandardError => e
+        "#{e.message}"
+      end
+    end
+
     private
 
-    def json_resources
-      JSON.parse(resources.body)['incidents']
+    def update_resource(alert)
+      PagerDuty::Request.put(
+        user_id,
+        PATH,
+        alert
+      )
+    end
+
+    def last_json_resource
+      JSON.parse(resources.body)['incidents'].first
     end
 
     def resources
