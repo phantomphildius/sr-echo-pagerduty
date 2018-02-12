@@ -3,7 +3,9 @@ require './lib/alexa/response'
 
 module Alexa
   class Handlers
+    # rubocop:disable Style/ClassVars
     @@intents = {}
+    # rubocop:enable Style/ClassVars
 
     def initialize(request)
       @request = request

@@ -3,7 +3,11 @@
 source 'https://rubygems.org'
 
 gem 'aws-sdk-core'
-gem 'pry'
-gem 'rspec'
-gem 'rubocop'
 gem 'sinatra'
+
+group :development, :test do
+  gem 'guard-rspec', require: false
+  gem 'pry'
+  gem 'rspec'
+  gem 'rubocop'
+end

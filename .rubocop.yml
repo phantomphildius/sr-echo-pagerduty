@@ -1,0 +1,33 @@
+AllCops:
+  TargetRubyVersion: 2.4
+  Exclude:
+    - scripts/**/*
+
+Rails:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/LineLength:
+  Enabled: true
+  Max: 100
+
+Metrics/MethodLength:
+  Enabled: true
+  Max: 5
+
+Metrics/BlockLength:
+  Enabled: true
+  Exclude:
+    - spec/**/*
+
+Layout/MultilineMethodCallIndentation:
+  Enabled: true
+  EnforcedStyle: indented_relative_to_receiver
+
+Style/FrozenStringLiteralComment:
+  Enabled: false

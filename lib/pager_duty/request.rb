@@ -9,7 +9,7 @@ module PagerDuty
     end
 
     def self.connection(user_id)
-      @connection ||= PagerDuty::Connection.configure(user_id)
+      @connection ||= PagerDuty::Connection.new(user_id).configure
     end
   end
 end

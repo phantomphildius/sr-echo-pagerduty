@@ -4,19 +4,28 @@ module Alexa
   class Dynamo
     TABLE_NAME = 'Users'.freeze
 
-    def self.fetch_token(user_id)
+    attr_reader :user_id, :dynamo
+
+    def initialize(user_id)
+      @user_id = user_id
+
+      configure_aws
+      @dynamo = Aws::DynamoDB::Client.new
+    end
+
+    def fetch_token
+      dynamo.get_item(table_name: TABLE_NAME, key: { user_id: user_id }).item['info']['access_key']
+    rescue Aws::DynamoDB::Errors::ServiceError => error
+      puts "Unable to retrive user. Error: #{error.message}"
+    end
+
+    private
+
+    def configure_aws
       Aws.config.update(
         region: 'us-west-1',
-        endpoint: 'http://localhost:8000'
+        endpoint: 'http://localhost:8000' # use ENV var
       )
-
-      dynamo_db = Aws::DynamoDB::Client.new
-      begin
-        user = dynamo_db.get_item(table_name: TABLE_NAME, key: { user_id: user_id }).item
-      rescue Aws::DynamoDB::Errors::ServiceError => error
-        puts "Unable to retrive user. Error: #{error.message}"
-      end
-      user['info']['access_key']
     end
   end
 end

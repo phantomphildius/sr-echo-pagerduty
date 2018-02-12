@@ -24,12 +24,12 @@ Currently in dev
 ** table name is users
 
 ## TODO
-- [ ] write moat tests
-- [ ] fix rubocop
-- [ ] sandi metz-ify
-- [ ] add coveralls
+- [x] write moat tests
+- [x] fix rubocop
+- [x] sandi metz-ify
+- [x] index of triggered alerts
 - [ ] elastic beanstalk
 - [ ] last alert response
 - [ ] session alert response
-- [ ] index of triggered alerts
 - [ ] investigate login/email/token UI from alexa app
+- [ ] add coveralls on travis

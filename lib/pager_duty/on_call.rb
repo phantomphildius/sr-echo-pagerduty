@@ -18,8 +18,11 @@ module PagerDuty
     private
 
     def json_resources
+      JSON.parse(resources.body)['oncalls']
+    end
+
+    def resources
       @resources ||= PagerDuty::Request.get(user_id, PATH)
-      JSON.parse(@resources.body)['oncalls']
     end
   end
 end
