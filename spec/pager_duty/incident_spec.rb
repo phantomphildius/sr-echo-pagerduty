@@ -55,6 +55,30 @@ RSpec.describe PagerDuty::Incident do
     end
   end
 
+  describe '#update_last_alert' do
+    it 'updates an alert' do
+      pd_incident = PagerDuty::Incident.new('user-id')
+      pd_response = double('response', body: incidents_json)
+      allow(pd_incident).to receive(:resources).and_return(pd_response)
+      allow(pd_incident).to receive(:update_resource).and_return(true)
+
+      res = pd_incident.update_last_alert('escalate')
+
+      expect(res).to eq('Alert successfully updated, but just make sure its okay in the app')
+    end
+
+    it 'returns a failure message if something goes wrong' do
+      pd_incident = PagerDuty::Incident.new('user-id')
+      pd_response = double('response', body: incidents_json)
+      allow(pd_incident).to receive(:resources).and_return(pd_response)
+      allow(pd_incident).to receive(:update_resource).and_raise
+
+      res = pd_incident.update_last_alert('escalate')
+
+      expect(res).to eq('Something went wrong check the app')
+    end
+  end
+
   # rubocop:disable MethodLength
   def incidents_json
     {

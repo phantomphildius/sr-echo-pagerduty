@@ -28,8 +28,8 @@ Currently in dev
 - [x] fix rubocop
 - [x] sandi metz-ify
 - [x] index of triggered alerts
+- [x] last alert update
+- [ ] on call schedules (when am i oncall)
 - [ ] elastic beanstalk
-- [ ] last alert response
-- [ ] session alert response
-- [ ] investigate login/email/token UI from alexa app
+- [ ] investigate login/email/token UI from alexa app (account linking?)
 - [ ] add coveralls on travis

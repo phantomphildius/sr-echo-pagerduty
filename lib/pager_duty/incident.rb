@@ -18,34 +18,31 @@ module PagerDuty
     end
 
     def last_alert
-      alert = last_json_resources.first || {}
+      alert = json_resources.first || {}
       build_alert(alert)
     end
 
     def triggered_alerts
-      alerts = last_json_resources.empty? ? [{}] : last_json_resources
+      alerts = json_resources.empty? ? [{}] : json_resources
       alerts.map { |alert| build_alert(alert) }
     end
 
-    # TODO
-    # def update_last_alert(action)
-    #   alert = last_json_resource || {}
-    #   alert['status'] = action
-    #   begin
-    #     update_resource(alert)
-    #     "Alert successfully #{action}d"
-    #   rescue StandardError => e
-    #     (e.message).to_s
-    #   end
-    # end
+    def update_last_alert(action)
+      alert = json_resources.first
+      update_resource(alert, action)
+      'Alert successfully updated, but just make sure its okay in the app'
+    rescue StandardError
+      'Something went wrong check the app'
+    end
 
     private
 
-    def update_resource(alert)
+    def update_resource(alert, action)
+      alert['status'] = action
       PagerDuty::Request.put(user_id, PATH, alert)
     end
 
-    def last_json_resources
+    def json_resources
       JSON.parse(resources.body)['incidents']
     end
 
@@ -55,6 +52,11 @@ module PagerDuty
         PATH,
         TRIGGERED_ALERT_OPTIONS
       )
+    end
+
+    def json_resource
+      alerts = PagerDuty::Request.get(user_id, PATH, alert_id)
+      JSON.parse(alerts.body)['incident']
     end
 
     def build_alert(alert)
