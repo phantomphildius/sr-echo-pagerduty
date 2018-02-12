@@ -8,11 +8,12 @@ Currently in dev
 ## Current Endpoints
 ### incidents
 * Alexa reads back all triggered incidents sorted by desc date
+* Alexa reads back last triggered alert
+* Alexa can update the incident with your given action
 ### oncalls
 * Alexa responds with current team members on call sorted by priority
 ### in dev
-* Respond to an alert in a session
-* Respond to last alert
+* Schedules?
 
 ## Tests
 * Run rspec spec
