@@ -7,7 +7,6 @@ gem 'sinatra'
 
 group :development, :test do
   gem 'guard-rspec', require: false
-  gem 'pry'
   gem 'rspec'
   gem 'rubocop'
 end
